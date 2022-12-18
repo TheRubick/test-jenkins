@@ -7,4 +7,10 @@ pipeline {
             }
         }
     }
+   	post {
+		always
+		{
+			echo "this will be always printed"
+		}    
+	}
 }
