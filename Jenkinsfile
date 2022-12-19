@@ -4,6 +4,11 @@ pipeline {
 		user_name='aymon'
 	}    
 stages {
+	stage('Build') {
+            	steps {
+                	sh 'echo "building stage is here"'
+            	}
+        }
         stage('Test') {
 		environment {
 			user_name='aymon_in_stage'
@@ -22,9 +27,7 @@ stages {
 		}
 		success
 		{
-			mail 	to: 'mohamed_ayman_07@hotmail.com',
-             			subject: "successful pipeline",
-             			body: "build is successed"
+			echo "build has been successed"
 		}    
 	}
 }
