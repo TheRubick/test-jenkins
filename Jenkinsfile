@@ -14,6 +14,7 @@ stages {
 			user_name='aymon_in_stage'
 		}    
             	steps {
+			input "do you want to proceed?"
                 	sh 'ls -l'
 			sh 'echo "testingggggggg"'
             	}
