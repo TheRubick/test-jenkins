@@ -19,11 +19,12 @@ stages {
 		always
 		{
 			echo "this will be always printed"
-			junit 'build/reports/**/*.xml'
 		}
 		success
 		{
-			echo "build is successed"
+			mail 	to: 'mohamed_ayman_07@hotmail.com',
+             			subject: "successful pipeline",
+             			body: "build is successed"
 		}    
 	}
 }
