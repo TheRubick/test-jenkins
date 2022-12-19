@@ -18,6 +18,7 @@ stages {
 		always
 		{
 			echo "this will be always printed"
+			junit 'build/reports/**/*.xml'
 		}
 		success
 		{
