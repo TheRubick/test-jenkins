@@ -4,16 +4,17 @@ pipeline {
 		user_name='aymon'
 	}    
 stages {
-        stage('build') {
+        stage('Test') {
 		environment {
 			user_name='aymon_in_stage'
 		}    
             	steps {
                 	sh 'ls -l'
-			sh 'echo "user name = ${user_name}"'
+			sh 'echo "testingggggggg"'
             	}
         }
-    }
+	
+   }
    	post {
 		always
 		{
