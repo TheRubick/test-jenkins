@@ -6,6 +6,7 @@ pipeline {
 stages {
         stage('build') {
             steps {
+		user_name='aymon_in_stage'
                 sh 'ls -l'
 		sh 'echo "user name = ${user_name}"'
             }
