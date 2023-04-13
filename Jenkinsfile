@@ -9,11 +9,13 @@ stages {
             	buildTheApp()
             }
         }
-        stage('Test') {
+        stage('run the app') {
 		environment {
 			user_name='aymon_in_stage'
 		}    
   steps {
+            sh 'echo you are running the app now'
+            runTheApp()
 			      input "do you want to proceed?"
             sh 'ls -l'
 			      sh 'echo "now the user name = ${user_name}"'
@@ -24,11 +26,13 @@ stages {
 		always
 		{
 			echo "this will be always printed"
+      sh "docker ps -f name=webapp -q | xargs -r docker stop"
+      sh "docker ps -f name=webapp -qa | xargs -r docker rm"
+      sh "docker rmi web-app-jenkins:${BUILD_NUMBER}"
 		}
 		success
 		{
 			echo "build has been successed"
-      sh "docker rmi web-app-jenkins:${BUILD_NUMBER}"
 		}    
 	}
 }
@@ -38,4 +42,10 @@ def buildTheApp(){
   {
       docker.build("web-app-jenkins:${BUILD_NUMBER}")
   }
+}
+
+def runTheApp(){
+  sh "docker ps -f name=webapp -q | xargs -r docker stop"
+  sh "docker ps -f name=webapp -qa | xargs -r docker rm"
+  sh "docker run -d --name=webapp -p 5020:5000 web-app-jenkins:${BUILD_NUMBER}" 
 }
