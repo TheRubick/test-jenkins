@@ -6,22 +6,20 @@ pipeline {
 stages {
 	stage('Build') {
             	steps {
-                	sh 'echo "building stage is here"'
-            	testChangingThePath()
+            	buildTheApp()
             }
         }
         stage('Test') {
 		environment {
 			user_name='aymon_in_stage'
 		}    
-            	steps {
-			input "do you want to proceed?"
-                	sh 'ls -l'
-			sh 'echo "now the user name = ${user_name}"'
-            	}
+  steps {
+			      input "do you want to proceed?"
+            sh 'ls -l'
+			      sh 'echo "now the user name = ${user_name}"'
         }
-	
-   }
+      }	
+    }
    	post {
 		always
 		{
@@ -30,13 +28,14 @@ stages {
 		success
 		{
 			echo "build has been successed"
+      sh "docker rmi web-app-jenkins:${BUILD_NUMBER}"
 		}    
 	}
 }
 
-def testChangingThePath(){
-  dir("./section_4/")
+def buildTheApp(){
+  dir("./section_4/code/cd_pipeline")
   {
-      sh "echo I am here `pwd`"
+      docker.build("web-app-jenkins:${BUILD_NUMBER}")
   }
 }
