@@ -3,10 +3,14 @@ pipeline {
 	environment {
 		user_name='aymon'
 	}    
+parameters {
+  string defaultValue: 'mamado', name: 'name'
+}
 stages {
 	stage('Build') {
             	steps {
             	buildTheApp()
+              sh "echo hello ${name}"
             }
         }
         stage('run the app') {
